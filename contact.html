@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support | Krusarthi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/krusarthi.css">
+</head>
+<body>
+
+    <!-- HEADER / NAV -->
+    <header id="site-header">
+        <nav>
+            <a class="logo" href="index.html">
+                <i class="bi bi-flower2"></i>KRUSARTHI
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="farmer.html">For Farmers</a></li>
+                <li><a href="consumer.html">For Consumers</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="live-hubs.html">Live Hubs</a></li>
+            </ul>
+            <div class="nav-right">
+                <button class="btn-lang" id="lang-toggle">EN / मराठी</button>
+                <button class="btn-login">Login / Join</button>
+                <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+        <div class="nav-mobile-drawer" id="mobile-drawer">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="farmer.html">🌾 For Farmers</a></li>
+                <li><a href="consumer.html">🛒 For Consumers</a></li>
+                <li><a href="how-it-works.html">⚙️ How It Works</a></li>
+                <li><a href="live-hubs.html">📍 Live Hubs</a></li>
+            </ul>
+            <div class="drawer-actions">
+                <button class="btn-lang" id="lang-toggle-mob">EN / मराठी</button>
+                <button class="btn-login">Login / Join</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero">
+            <span class="hero-badge" style="background: rgba(13,202,240,0.2); border-color: rgba(13,202,240,0.4); color: #9eeaf9;"><i class="bi bi-headset"></i> SUPPORT CENTER</span>
+            <h1>We Are Here to Help</h1>
+            <p>Have questions about your booking or listing? Our operations team is ready.</p>
+        </section>
+
+        <!-- CONTENT -->
+        <section class="content-section">
+            <div class="container-xl" style="max-width: 64rem; text-align: center;">
+                <div class="info-card reveal">
+                    <i class="bi bi-whatsapp" style="font-size: 4rem; color: #25D366; display:block; margin-bottom:1.6rem;"></i>
+                    <h3>WhatsApp Cloud Support</h3>
+                    <p style="margin-bottom:2.4rem;">Our platform utilizes the WhatsApp Cloud API for automated notifications. You can also chat with our support team directly via WhatsApp for instant resolution regarding refunds, no-shows, or location help.</p>
+                    <a href="#" class="btn-cta-primary" style="background: #25D366; box-shadow: 0 0.6rem 2rem rgba(37,211,102,0.3);"><i class="bi bi-whatsapp" style="margin-right:0.8rem;"></i> Chat on WhatsApp</a>
+                </div>
+
+                <div class="info-card reveal border-top mt-5" style="text-align: left;">
+                    <h3>Send us an Email</h3>
+                    <p style="margin-bottom:2rem;">For business inquiries or legal compliance matters.</p>
+                    
+                    <form onsubmit="event.preventDefault(); alert('Message sent!');">
+                        <div class="mb-4">
+                            <label class="form-label" style="font-size:1.4rem; font-weight:600; color:var(--color-text);">Your Name</label>
+                            <input type="text" class="form-control" style="padding:1.2rem; font-size:1.4rem; border-radius:0.8rem;" placeholder="e.g. Rahul Sharma" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" style="font-size:1.4rem; font-weight:600; color:var(--color-text);">Your Email</label>
+                            <input type="email" class="form-control" style="padding:1.2rem; font-size:1.4rem; border-radius:0.8rem;" placeholder="name@example.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" style="font-size:1.4rem; font-weight:600; color:var(--color-text);">Message</label>
+                            <textarea class="form-control" rows="4" style="padding:1.2rem; font-size:1.4rem; border-radius:0.8rem;" placeholder="How can we help?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-consumer" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <span class="footer-logo"><i class="bi bi-flower2"></i>KRUSARTHI</span>
+                <p class="footer-desc">Bridging the price gap between farmers and urban consumers in Maharashtra — one pit-stop at a time.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Navigate</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="farmer.html">For Farmers</a></li>
+                    <li><a href="consumer.html">For Consumers</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="live-hubs.html">Live Hubs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us &amp; Mission</a></li>
+                    <li><a href="legal-faq.html">Legal &amp; Direct-Selling FAQ</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    <li><a href="refund.html">Cancellation &amp; Refund</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Krusarthi. Built with ❤️ for Maharashtra's farmers.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="refund.html">Refunds</a>
+                <a href="contact.html">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const drawer    = document.getElementById('mobile-drawer');
+        hamburger.addEventListener('click', () => {
+            const isOpen = drawer.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+        });
+        drawer.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                drawer.classList.remove('open');
+                hamburger.classList.remove('open');
+            });
+        });
+        document.querySelectorAll('.reveal').forEach((el) => {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+            }, { threshold: 0.1 });
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

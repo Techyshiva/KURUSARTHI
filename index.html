@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krusarthi – Direct from Farm, On the Way to APMC</title>
+    <meta name="description" content="Krusarthi bridges the price gap between farmers and urban consumers by intercepting the traditional supply chain. Get farm-fresh produce 30% cheaper. Farmers earn 30% more.">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Shared site CSS -->
+    <link rel="stylesheet" href="static/css/krusarthi.css">
+
+
+    <style>
+        /* Hero scroll animation — index.html only */
+        #hero-sentinel {
+            position: relative;
+            height: 300vh;
+        }
+        #hero {
+            position: sticky; top: 0;
+            height: 100vh; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        #hero-fallback {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%; object-fit: cover;
+            transition: opacity 0.6s ease;
+        }
+        #hero-canvas {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+        }
+        #hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+        .hero-inner {
+            position: relative; z-index: 1;
+            max-width: 76rem; margin: 0 auto; text-align: center;
+            padding: 0 2rem; transition: opacity 0.3s ease;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(40,167,69,0.25);
+            border: 0.1rem solid rgba(40,167,69,0.6);
+            color: #a8f5b2; font-size: 1.2rem; font-weight: 600;
+            letter-spacing: 0.15rem; text-transform: uppercase;
+            padding: 0.4rem 1.4rem; border-radius: 10rem; margin-bottom: 1.8rem;
+        }
+        #hero h1 {
+            color: #ffffff; font-size: clamp(3rem, 6vw, 5.4rem);
+            font-weight: 800; margin-bottom: 1.6rem;
+        }
+        .hero-inner > p {
+            color: rgba(255,255,255,0.88);
+            font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+            max-width: 56rem; margin: 0 auto 3.6rem;
+        }
+    </style>
+
+
+
+</head>
+<body>
+
+
+
+    <!-- ===================== HEADER / NAV ===================== -->
+    <header id="site-header">
+        <nav>
+            <a class="logo" href="#">
+                <i class="bi bi-flower2"></i>KRUSARTHI
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="farmer.html">For Farmers</a></li>
+                <li><a href="consumer.html">For Consumers</a></li>
+                <li><a href="#how-it-works-overview">How It Works</a></li>
+                <li><a href="#live-hubs">Live Hubs</a></li>
+            </ul>
+
+            <!-- Right-side actions -->
+            <div class="nav-right">
+                <button class="btn-lang" id="lang-toggle">EN / मराठी</button>
+                <button class="btn-login">Login / Join</button>
+                <!-- Hamburger -->
+                <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Drawer -->
+        <div class="nav-mobile-drawer" id="mobile-drawer">
+            <ul>
+                <li><a href="#">🏠 Home</a></li>
+                <li><a href="farmer.html">🌾 For Farmers</a></li>
+                <li><a href="consumer.html">🛒 For Consumers</a></li>
+                <li><a href="#how-it-works-overview">⚙️ How It Works</a></li>
+                <li><a href="#live-hubs">📍 Live Hubs</a></li>
+            </ul>
+            <div class="drawer-actions">
+                <button class="btn-lang" id="lang-toggle-mob">EN / मराठी</button>
+                <button class="btn-login">Login / Join</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ===================== LIVE TICKER ===================== -->
+        <section id="live-ticker">
+            <p>
+                <i class="bi bi-truck" style="margin-right:0.6rem;"></i>
+                Next Farmer arriving in <strong>Ghansoli</strong> in:&nbsp;
+                <span id="timer">04:20:15</span>
+            </p>
+        </section>
+
+        <!-- ===================== HERO (scroll-driven image sequence) ===================== -->
+        <!-- Sentinel: 300vh — makes hero sticky across ~3 sections of scroll -->
+        <div id="hero-sentinel">
+            <section id="hero">
+                <!-- Fallback: frame-001 shown immediately (slow connection / no-JS) -->
+                <img id="hero-fallback"
+                     src="static/images/hero-img-seq/ezgif-frame-001.jpg"
+                     alt="Farmer loading truck">
+                <!-- Canvas: drawn by JS scroll scrubber -->
+                <canvas id="hero-canvas"></canvas>
+                <!-- Dark overlay -->
+                <div id="hero-overlay"></div>
+                <!-- Hero content -->
+                <div class="hero-inner" id="hero-content">
+                    <span class="hero-badge">
+                        <i class="bi bi-check-circle-fill" style="margin-right:0.4rem;color:#a8f5b2;"></i>
+                        Maharashtra's Direct-Farm Platform
+                    </span>
+                    <h1>Intercepting the Supply Chain&nbsp;for You</h1>
+                    <p>Bridging the massive price gap between farmers and urban consumers by cutting out the middleman entirely.</p>
+                    <div class="dual-cta">
+                        <div class="cta-card consumer-entry">
+                            <h2><i class="bi bi-bag-heart-fill" style="margin-right:0.6rem;color:#a8f5b2;"></i>For Consumers</h2>
+                            <p>Get farm-fresh produce at <strong style="color:#a8f5b2;">30% below retail</strong>. Pick up from your neighbourhood.</p>
+                            <button class="btn-consumer" id="btn-buy">
+                                <i class="bi bi-cart3" style="margin-right:0.6rem;"></i>I want to Buy
+                            </button>
+                        </div>
+                        <div class="cta-card farmer-entry">
+                            <h2><i class="bi bi-person-workspace" style="margin-right:0.6rem;color:#a8f5b2;"></i>For Farmers</h2>
+                            <p>Earn <strong style="color:#a8f5b2;">30% higher margins</strong> with zero extra travel and no minimum order.</p>
+                            <button class="btn-farmer" id="btn-sell">
+                                <i class="bi bi-shop" style="margin-right:0.6rem;"></i>I want to Sell
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div><!-- /#hero-sentinel -->
+
+        <!-- ===================== VALUE PROPOSITION ===================== -->
+        <section id="value-prop" id="about">
+            <div class="container-xl">
+                <h2 class="section-title reveal">Why Choose Krusarthi?</h2>
+                <p class="section-subtitle reveal">Everyone wins — farmers, consumers, and the environment.</p>
+
+                <div class="features-grid">
+
+                    <article class="feature-card reveal">
+                        <i class="bi bi-tags-fill feature-icon"></i>
+                        <span class="highlight-stat">30%</span>
+                        <h3>Lower Prices</h3>
+                        <p>Consumers pay roughly 30% less than local retail. Pick up fresh produce in your own neighbourhood directly from the farmer.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <i class="bi bi-graph-up-arrow feature-icon"></i>
+                        <span class="highlight-stat">30%</span>
+                        <h3>Higher Profits</h3>
+                        <p>Farmers earn a 30% premium over APMC rates with zero extra fuel and zero minimum order quantity required.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <i class="bi bi-lightning-charge-fill feature-icon"></i>
+                        <span class="highlight-stat">0</span>
+                        <h3>Extra Logistics</h3>
+                        <p>We piggyback on existing farmer routes already destined for city APMC markets like Vashi — no new trips needed.</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== HOW IT WORKS ===================== -->
+        <section id="how-it-works-overview">
+            <div class="container-xl">
+                <h2 class="section-title reveal">The 2-Hour Pit-Stop Model</h2>
+                <p class="section-subtitle reveal">A brilliantly simple four-step flow that creates maximum value with minimum disruption.</p>
+
+                <div class="steps-grid">
+
+                    <div class="step-card reveal">
+                        <div class="step-number">1</div>
+                        <h3>List</h3>
+                        <p>Farmers list a portion of their APMC bulk load for direct sale before they leave the farm.</p>
+                    </div>
+
+                    <div class="step-card reveal">
+                        <div class="step-number">2</div>
+                        <h3>Book</h3>
+                        <p>Consumers pre-book the exact quantity they need straight from their phone — no guesswork.</p>
+                    </div>
+
+                    <div class="step-card reveal">
+                        <div class="step-number">3</div>
+                        <h3>Stop</h3>
+                        <p>Farmers make a short 2-hour pit-stop at a targeted neighbourhood hub like Ghansoli on their existing route.</p>
+                    </div>
+
+                    <div class="step-card reveal">
+                        <div class="step-number">4</div>
+                        <h3>Handover</h3>
+                        <p>Consumers pick up pre-weighed commodities directly from the farmer. Fresh, fast, and fair.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== TRUST SHIELD ===================== -->
+        <section id="trust-shield">
+            <span class="trust-badge">
+                <i class="bi bi-shield-fill-check"></i>
+                100% Legal &amp; Protected
+            </span>
+            <h2>Your Rights. Our Foundation.</h2>
+            <p>Leveraging Maharashtra's direct-selling laws, farmers have the legal right to sell their own produce directly to consumers — without local interference or middlemen taking a cut.</p>
+        </section>
+
+        <!-- ===================== LIVE HUBS ===================== -->
+        <section id="live-hubs">
+            <div class="container-xl">
+                <h2 class="section-title reveal">Live Neighbourhood Hubs</h2>
+                <p class="section-subtitle reveal">Real farmers, real routes — find your nearest pit-stop pickup point.</p>
+
+                <div class="hubs-grid">
+
+                    <div class="hub-card reveal">
+                        <div class="hub-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>
+                            <h3>Ghansoli, Navi Mumbai</h3>
+                            <p>Near Ghansoli Metro Station · Every Tue &amp; Fri morning</p>
+                            <span class="hub-status live"><span class="hub-status-dot"></span> Live Now</span>
+                        </div>
+                    </div>
+
+                    <div class="hub-card reveal">
+                        <div class="hub-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>
+                            <h3>Airoli, Navi Mumbai</h3>
+                            <p>Airoli Sector 4 · Every Wed &amp; Sat morning</p>
+                            <span class="hub-status live"><span class="hub-status-dot"></span> Live Now</span>
+                        </div>
+                    </div>
+
+                    <div class="hub-card reveal">
+                        <div class="hub-icon"><i class="bi bi-geo-alt"></i></div>
+                        <div>
+                            <h3>Rabale, Navi Mumbai</h3>
+                            <p>Near Rabale MIDC Gate 1 · Coming Soon</p>
+                            <span class="hub-status soon"><span class="hub-status-dot"></span> Opening Soon</span>
+                        </div>
+                    </div>
+
+                    <div class="hub-card reveal">
+                        <div class="hub-icon"><i class="bi bi-geo-alt"></i></div>
+                        <div>
+                            <h3>Kopar Khairane</h3>
+                            <p>Sector 19 Community Ground · Coming Soon</p>
+                            <span class="hub-status soon"><span class="hub-status-dot"></span> Opening Soon</span>
+                        </div>
+                    </div>
+
+                    <div class="hub-card reveal">
+                        <div class="hub-icon"><i class="bi bi-geo-alt"></i></div>
+                        <div>
+                            <h3>Turbhe, Navi Mumbai</h3>
+                            <p>Near Turbhe Railway Station · Coming Soon</p>
+                            <span class="hub-status soon"><span class="hub-status-dot"></span> Opening Soon</span>
+                        </div>
+                    </div>
+
+                    <div class="hub-card reveal">
+                        <div class="hub-icon" style="background:#fff3e0;color:#f57c00;"><i class="bi bi-plus-lg"></i></div>
+                        <div>
+                            <h3>Suggest a Hub</h3>
+                            <p>Is your neighbourhood underserved? Let us know and we'll prioritise it.</p>
+                            <span class="hub-status soon" style="color:var(--color-primary);"><i class="bi bi-arrow-right"></i> Suggest Location</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== GET STARTED CTA ===================== -->
+        <section id="get-started">
+            <h2 class="reveal">Ready to Cut Out the Middleman?</h2>
+            <p class="reveal">Join thousands of consumers getting fresher produce for less — and farmers finally getting what they deserve. No app needed, just WhatsApp.</p>
+            <div class="cta-actions reveal">
+                <button class="btn-cta-primary">
+                    <i class="bi bi-whatsapp" style="margin-right:0.6rem;"></i>Join via WhatsApp
+                </button>
+                <button class="btn-cta-outline">
+                    <i class="bi bi-info-circle" style="margin-right:0.6rem;"></i>Learn More
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer>
+        <div class="footer-main">
+
+            <!-- Brand column -->
+            <div class="footer-brand">
+                <span class="footer-logo">
+                    <i class="bi bi-flower2"></i>KRUSARTHI
+                </span>
+                <p class="footer-desc">Bridging the price gap between farmers and urban consumers in Maharashtra — one pit-stop at a time.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Column: Navigate -->
+            <div class="footer-col">
+                <h4>Navigate</h4>
+                <ul>
+                    <li><a href="#"><i class="bi bi-house"></i>Home</a></li>
+                    <li><a href="farmer.html"><i class="bi bi-person-workspace"></i>For Farmers</a></li>
+                    <li><a href="consumer.html"><i class="bi bi-bag-heart"></i>For Consumers</a></li>
+                    <li><a href="#how-it-works-overview"><i class="bi bi-arrow-repeat"></i>How It Works</a></li>
+                    <li><a href="#live-hubs"><i class="bi bi-geo-alt"></i>Live Hubs</a></li>
+                </ul>
+            </div>
+
+            <!-- Column: Company -->
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html"><i class="bi bi-people"></i>About Us &amp; Mission</a></li>
+                    <li><a href="legal-faq.html"><i class="bi bi-shield-check"></i>Legal &amp; Direct-Selling FAQ</a></li>
+                    <li><a href="contact.html"><i class="bi bi-headset"></i>Contact Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Column: Legal -->
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html"><i class="bi bi-lock"></i>Privacy Policy</a></li>
+                    <li><a href="terms.html"><i class="bi bi-file-text"></i>Terms &amp; Conditions</a></li>
+                    <li><a href="refund.html"><i class="bi bi-arrow-counterclockwise"></i>Cancellation &amp; Refund</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 Krusarthi. Built with ❤️ for Maharashtra's farmers.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="refund.html">Refunds</a>
+                <a href="contact.html">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /* ============================================
+           LIVE COUNTDOWN TIMER
+        ============================================ */
+        (function () {
+            const timerEl = document.getElementById('timer');
+            let totalSeconds = (4 * 3600) + (20 * 60) + 15;
+
+            function pad(n) { return String(n).padStart(2, '0'); }
+
+            function tick() {
+                if (totalSeconds <= 0) {
+                    timerEl.textContent = '00:00:00';
+                    return;
+                }
+                totalSeconds--;
+                const h = Math.floor(totalSeconds / 3600);
+                const m = Math.floor((totalSeconds % 3600) / 60);
+                const s = totalSeconds % 60;
+                timerEl.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+            }
+
+            setInterval(tick, 1000);
+        })();
+
+        /* ============================================
+           SCROLL REVEAL ANIMATION
+        ============================================ */
+        (function () {
+            const revealEls = document.querySelectorAll('.reveal');
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry, i) => {
+                        if (entry.isIntersecting) {
+                            // stagger siblings inside the same parent
+                            const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+                            siblings.forEach((el, idx) => {
+                                setTimeout(() => el.classList.add('visible'), idx * 100);
+                            });
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.12 }
+            );
+
+            revealEls.forEach(el => observer.observe(el));
+        })();
+
+        /* ============================================
+           LANGUAGE TOGGLE (STUB)
+        ============================================ */
+        document.getElementById('lang-toggle').addEventListener('click', function () {
+            alert('Language switching coming soon! / भाषा बदलणे लवकरच येत आहे!');
+        });
+
+        /* ============================================
+           HAMBURGER MENU TOGGLE
+        ============================================ */
+        (function () {
+            const hamburger = document.getElementById('hamburger');
+            const drawer    = document.getElementById('mobile-drawer');
+            const langMob   = document.getElementById('lang-toggle-mob');
+
+            hamburger.addEventListener('click', () => {
+                const isOpen = drawer.classList.toggle('open');
+                hamburger.classList.toggle('open', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+
+            // Close drawer on link click
+            drawer.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    drawer.classList.remove('open');
+                    hamburger.classList.remove('open');
+                });
+            });
+
+            // Language toggle inside drawer
+            if (langMob) {
+                langMob.addEventListener('click', () => {
+                    alert('Language switching coming soon! / भाषा बदलणे लवकरच येत आहे!');
+                });
+            }
+        })();
+
+        /* ============================================
+           HERO IMAGE SEQUENCE (SCROLL SCRUBBING)
+        ============================================ */
+        class HeroSequence {
+            constructor() {
+                this.sentinel = document.getElementById('hero-sentinel');
+                this.canvas   = document.getElementById('hero-canvas');
+                this.fallback = document.getElementById('hero-fallback');
+                this.content  = document.getElementById('hero-content');
+                this.overlay  = document.getElementById('hero-overlay');
+                
+                if (!this.sentinel || !this.canvas) return;
+
+                this.ctx = this.canvas.getContext('2d');
+                this.frameCount = 183;
+                this.images = [];
+                this.loadedImages = 0;
+                this.currentFrame = -1;
+                
+                // Track viewport size to set canvas dimensions
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+                this.setCanvasSize();
+
+                window.addEventListener('resize', () => {
+                    this.width = window.innerWidth;
+                    this.height = window.innerHeight;
+                    this.setCanvasSize();
+                    this.render(Math.max(0, this.currentFrame));
+                });
+
+                this.preloadImages();
+                this.bindScroll();
+            }
+
+            setCanvasSize() {
+                this.canvas.width = this.width;
+                this.canvas.height = this.height;
+            }
+
+            zeroPad(num, places) {
+                return String(num).padStart(places, '0');
+            }
+
+            preloadImages() {
+                // Eagerly preload first frame to hide fallback ASAP
+                for (let i = 1; i <= this.frameCount; i++) {
+                    const img = new Image();
+                    img.src = `static/images/hero-img-seq/ezgif-frame-${this.zeroPad(i, 3)}.jpg`;
+                    
+                    img.onload = () => {
+                        this.loadedImages++;
+                        if (i === 1) {
+                            // First frame loaded, hide fallback and draw
+                            if (this.fallback) this.fallback.style.opacity = '0';
+                            this.render(0);
+                        }
+                    };
+                    this.images.push(img);
+                }
+            }
+
+            bindScroll() {
+                let ticking = false;
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            this.updateFrames();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }, { passive: true });
+                
+                // Initial paint
+                this.updateFrames();
+            }
+
+            updateFrames() {
+                const rect = this.sentinel.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Progress starts at 0 (top of sentinel hits top of viewport)
+                // and ends at 1 (bottom of sentinel hits bottom of viewport)
+                // Sentinel is 300vh, so scroll span is 200vh
+                const scrollSpan = rect.height - viewportHeight;
+                let progress = -rect.top / scrollSpan;
+                
+                progress = Math.max(0, Math.min(1, progress));
+                
+                // Map progress (0 -> 1) to frame index (0 -> 182)
+                const targetFrame = Math.min(
+                    this.frameCount - 1,
+                    Math.floor(progress * this.frameCount)
+                );
+
+                if (targetFrame !== this.currentFrame) {
+                    this.render(targetFrame);
+                    this.currentFrame = targetFrame;
+                }
+
+                // Opacity fading for overlay and text
+                // Fade out text overlay gradually as we scroll down
+                if (progress > 0) {
+                    const textOpacity = Math.max(0, 1 - (progress * 2.5)); 
+                    const overlayOpacity = 0.55 * Math.max(0.3, 1 - (progress * 2.5));
+                    
+                    this.content.style.opacity = textOpacity;
+                    this.overlay.style.backgroundColor = `rgba(0,0,0,${overlayOpacity})`;
+                } else {
+                    this.content.style.opacity = 1;
+                    this.overlay.style.backgroundColor = 'rgba(0,0,0,0.55)';
+                }
+            }
+
+            render(index) {
+                if (index < 0 || index >= this.images.length || !this.images[index].complete) return;
+                
+                const img = this.images[index];
+                
+                // Object Fit: Cover simulation for Canvas
+                const imgAspect = img.width / img.height;
+                const canvasAspect = this.width / this.height;
+                
+                let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+
+                if (imgAspect > canvasAspect) {
+                    // Image is wider than canvas
+                    drawHeight = this.height;
+                    drawWidth = img.width * (this.height / img.height);
+                    offsetX = (this.width - drawWidth) / 2;
+                } else {
+                    // Image is taller than canvas
+                    drawWidth = this.width;
+                    drawHeight = img.height * (this.width / img.width);
+                    offsetY = (this.height - drawHeight) / 2;
+                }
+
+                this.ctx.clearRect(0, 0, this.width, this.height);
+                this.ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+            }
+        }
+
+        // Initialize sequence on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            new HeroSequence();
+        });
+    </script>
+</body>
+</html>
